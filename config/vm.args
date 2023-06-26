@@ -1,0 +1,8 @@
+-sname webRTP
+
+-setcookie webRTP_cookie
+
++K true
++A30
+
+-mode interactive
