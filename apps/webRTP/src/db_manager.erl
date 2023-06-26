@@ -34,14 +34,8 @@ delete_abonent(ID) ->
 init(_Args) ->
   mnesia:create_schema([node()]),
   mnesia:start(),
-  %mnesia:create_table(abonent, [{disc_copies, [node()]}, {attributes, record_info(fields, abonent)}]),
-  mnesia:create_table(abonent, [{attributes, record_info(fields, abonent)}]),
-%%  case mnesia:wait_for_tables([abonent], 30000) of
-%%    ok -> lager:info("Database loaded successfully");
-%%    _ ->
-%%      lager:error("Failed to load database"),
-%%      error(db_not_load)
-%%  end,
+  mnesia:change_table_copy_type(schema, node(), disc_copies),
+  mnesia:create_table(abonent, [{disc_copies, [node()]}, {attributes, record_info(fields, abonent)}]),
   {ok, no_state}.
 
 handle_call({get_abonent, ID}, _From, State) ->
