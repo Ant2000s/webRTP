@@ -1,6 +1,6 @@
 %%%-------------------------------------------------------------------
 %%% @doc
-%%%
+%%% Intercepts and processes incoming HTTP requests.
 %%% @end
 %%%-------------------------------------------------------------------
 -module(http_handler).
@@ -9,8 +9,13 @@
 %API
 -export([start/0]).
 
+% Internal functions
 -export([init/2, handler/4]).
 
+%%% API %%%
+
+%% @doc Starts server to listen port for HTTP requests.
+-spec start() -> {ok, pid()}.
 start() ->
   Dispatch = cowboy_router:compile([
     {'_', [
@@ -24,6 +29,8 @@ start() ->
   {ok, _} = cowboy:start_clear(http, [{port, 8080}], #{
     env => #{dispatch => Dispatch}
   }).
+
+%%% INTERNAL FUNCTIONS %%%
 
 init(Req, State) ->
   Method = cowboy_req:method(Req),

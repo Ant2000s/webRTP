@@ -1,6 +1,6 @@
 %%%-------------------------------------------------------------------
 %%% @doc
-%%%
+%%% Performs abonent registration on server and then makes calls.
 %%% @end
 %%%-------------------------------------------------------------------
 -module(sender).
@@ -11,6 +11,7 @@
 %% API
 -export([start/0, call/3]).
 
+% Callback
 -export([init/1, handle_call/3]).
 
 -define(ID, 101).
@@ -18,13 +19,20 @@
 -define(DOMAIN, "test.domain").
 -define(IP, "10.0.20.11").
 
-%API
+%%% API %%%
+
+%% @doc Module start; registration abonent on the server.
+-spec start() -> {ok, pid()}.
 start() ->
   gen_server:start_link({local, ?MODULE}, ?MODULE, [],[]).
 
+%% @doc Calls abonent and plays voice message.
+-spec call(integer(), string(), string()) -> ok | {error,
+                      metadata_not_received | call_failed}.
 call(AbonentId, AbonentPass, VoiceFile) ->
   gen_server:call(?MODULE, {AbonentId, AbonentPass, VoiceFile}, 25000).
 
+%%% CALLBACKS %%%
 
 init(_Args) ->
   FirstAbonent = "sip:" ++ integer_to_list(?ID) ++ "@" ++ ?DOMAIN,

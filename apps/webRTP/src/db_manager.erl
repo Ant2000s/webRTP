@@ -1,6 +1,7 @@
 %%%-------------------------------------------------------------------
 %%% @doc
-%%%
+%%% Runs mnesia and loads the database, after that it is
+%%% engaged in the formation of transactions to it.
 %%% @end
 %%%-------------------------------------------------------------------
 -module(db_manager).
@@ -12,25 +13,38 @@
 %% API
 -export([start/0, get_abonent/1, get_abonents/0, post_abonent/2, delete_abonent/1]).
 
-%Callback
+% Callbacks
 -export([init/1, handle_call/3]).
 
+%%% API %%%
+
+%% @doc Module start; loading or creating a database.
+-spec start() -> {ok, pid()}.
 start() ->
  gen_server:start_link({local, ?MODULE}, ?MODULE, [], []).
 
+%% @doc Getting abonent data by ID.
+-spec get_abonent(integer()) -> [tuple()].
 get_abonent(ID) ->
   gen_server:call(?MODULE, {get_abonent, ID}).
 
+%% @doc Getting data of all abonents in database.
+-spec get_abonents() -> [tuple()].
 get_abonents() ->
   gen_server:call(?MODULE, get_abonents).
 
+%% @doc Add abonent to database.
+-spec post_abonent(integer(), string()) -> ok | term().
 post_abonent(ID, Password) ->
   gen_server:call(?MODULE, {post_abonent, ID, Password}).
 
+%% @doc Delete abonent from database.
+-spec delete_abonent(integer()) -> ok | term().
 delete_abonent(ID) ->
   gen_server:call(?MODULE, {delete_abonent, ID}).
 
-%Callback
+%%% CALLBACKS %%%
+
 init(_Args) ->
   mnesia:create_schema([node()]),
   mnesia:start(),
