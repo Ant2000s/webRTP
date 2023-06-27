@@ -1,3 +1,5 @@
+[![Docker Image CI](https://github.com/Ant2000s/webRTP/actions/workflows/docker-image.yml/badge.svg)](https://github.com/Ant2000s/webRTP/actions/workflows/docker-image.yml)
+
 webRTP
 =====
 
