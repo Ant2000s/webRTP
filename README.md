@@ -36,6 +36,7 @@ All requests are sent to localhost:8080/
 | GET    | call/broadcast/"MESSAGE"/  | Сalling and sending the specified message to all abonents in the database.                                             |
 | POST   | abonent/                   | Adding abonent to the database. The request body must contain ID and Pass fields. Example: {"ID": 102, "Pass": "1234"} |
 | DELETE | abonent/ID/                | Deleting abonent with the specified ID.                                                                                |
+
 Important
 -----
 Since the application was written for a specific server, the application itself is registered as abonent 101.
