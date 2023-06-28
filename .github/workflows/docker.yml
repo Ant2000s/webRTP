@@ -1,14 +1,12 @@
-name: Docker Image CI
+name: Docker
 
 on:
   push:
     branches:
       - 'main'
-      - 'docker-compose'
   pull_request:
     branches:
       - 'main'
-      - 'docker-compose'
 
 jobs:
 
