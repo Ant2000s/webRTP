@@ -12,7 +12,7 @@
 
 %% @doc Сonverts text into a voice message for transmission
 %% and writes it to a file.
--spec text_to_wav(string()) -> ok | {error, atom()}.
+-spec text_to_wav(string(), string()) -> ok | {error, atom()}.
 text_to_wav(Text, ResultFile) ->
   GenVoice = "wget -O generate.wav \"https://tts.voicetech.yandex.net/generate?format=wav&lang=ru_RU&key=069b6659-984b-4c5f-880e-aaedcfd84102&text="
     ++ Text ++ "\"",
